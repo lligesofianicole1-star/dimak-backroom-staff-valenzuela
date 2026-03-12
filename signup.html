@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sign Up – Dimak Backroom Staff Valenzuela</title>
+<style>
+body {
+    background-color: #ffe5e5;
+    font-family: Arial, sans-serif;
+    color: #800000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.container {
+    background-color: #fff0f0;
+    padding: 40px;
+    border-radius: 12px;
+    width: 350px;
+    text-align: center;
+}
+h1 { font-weight: bold; margin-bottom: 20px; }
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ffcccc;
+}
+button {
+    background: #ff6666;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+a { display: block; margin-top: 15px; color: #800000; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Sign Up</h1>
+<input type="text" id="fullname" placeholder="Full Name">
+<input type="text" id="username" placeholder="Username">
+<input type="password" id="password" placeholder="Password">
+<input type="email" id="email" placeholder="Email">
+<button onclick="signup()">Sign Up</button>
+<a href="index.html">Back to Login</a>
+</div>
+
+<script>
+function signup() {
+    alert("This is a prototype. Real signup will connect to database.");
+}
+</script>
+</body>
+</html>
