@@ -2,36 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard – Dimak Backroom Staff Valenzuela</title>
+<title>Dashboard</title>
 <style>
-body {
-    background: #ffe5e5;
-    font-family: Arial;
-    color: #800000;
-    padding: 20px;
-}
-h1 { font-weight: bold; text-align: center; }
-#search {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 6px;
-    border: 1px solid #ffcccc;
-}
-.record {
-    background: #fff0f0;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-}
-.record img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    margin-right: 15px;
-}
+body { background:#ffe5e5; font-family:Arial; color:#800000; padding:20px;}
+h1 { font-weight:bold; text-align:center;}
+#search { width:100%; padding:10px; border-radius:6px; border:1px solid #ffcccc; margin-bottom:15px;}
+.record { background:#fff0f0; padding:15px; margin:10px 0; border-radius:10px; display:flex; align-items:center;}
+.record img { width:80px; height:80px; border-radius:50%; margin-right:15px;}
 </style>
 </head>
 <body>
@@ -40,37 +17,37 @@ h1 { font-weight: bold; text-align: center; }
 <div id="records"></div>
 
 <script>
-// Sample data
-const users = [
-    { fullname:"Jane Doe", username:"janedoe", email:"jane@example.com", picture:"https://via.placeholder.com/80" },
-    { fullname:"John Smith", username:"johnsmith", email:"john@example.com", picture:"https://via.placeholder.com/80" }
-];
+async function loadRecords() {
+    let response = await fetch('data.json');
+    let users = await response.json();
+    window.users = users; // store globally
 
-function displayRecords(list) {
-    let container = document.getElementById("records");
-    container.innerHTML = "";
-    list.forEach(u => {
+    displayRecords(users);
+}
+
+function displayRecords(users) {
+    let container = document.getElementById('records');
+    container.innerHTML = '';
+    users.forEach(user => {
         container.innerHTML += `
         <div class="record">
-            <img src="${u.picture}" alt="Profile">
-            <div>
-                <strong>${u.fullname}</strong><br>
-                ID: ${u.username}<br>Email: ${u.email}
-            </div>
+            <img src="${user.picture}" alt="Profile">
+            <div><strong>${user.fullname}</strong><br>ID: ${user.username} | Email: ${user.email}</div>
         </div>`;
     });
 }
 
 function filterRecords() {
-    let q = document.getElementById("search").value.toLowerCase();
-    displayRecords(users.filter(u =>
-        u.fullname.toLowerCase().includes(q) ||
-        u.username.toLowerCase().includes(q) ||
-        u.email.toLowerCase().includes(q)
-    ));
+    let query = document.getElementById('search').value.toLowerCase();
+    let filtered = window.users.filter(u => 
+        u.fullname.toLowerCase().includes(query) || 
+        u.username.toLowerCase().includes(query) || 
+        u.email.toLowerCase().includes(query)
+    );
+    displayRecords(filtered);
 }
 
-displayRecords(users);
+loadRecords();
 </script>
 </body>
 </html>

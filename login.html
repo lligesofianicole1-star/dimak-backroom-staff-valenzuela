@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Sign Up</title>
+<title>Login</title>
 <style>
 body { background-color: #ffe5e5; font-family: Arial; color:#800000; display:flex; justify-content:center; align-items:center; height:100vh;}
 .container { background:#fff0f0; padding:40px; border-radius:12px; width:350px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.1);}
@@ -14,18 +14,29 @@ a { display:block; margin-top:15px; color:#800000; text-decoration:none;}
 </head>
 <body>
 <div class="container">
-<h1>Sign Up</h1>
-<input type="text" placeholder="Full Name" id="fullname">
+<h1>Login</h1>
 <input type="text" placeholder="Username" id="username">
 <input type="password" placeholder="Password" id="password">
-<input type="email" placeholder="Email" id="email">
-<button onclick="signup()">Sign Up</button>
-<a href="index.html">Back to Login</a>
+<button onclick="login()">Log In</button>
+<a href="signup.html">Sign Up</a>
 </div>
 
 <script>
-async function signup() {
-    alert('This is a local prototype. You can add users directly in data.json for now.');
+async function login() {
+    let username = document.getElementById('username').value;
+    let password = document.getElementById('password').value;
+
+    let response = await fetch('data.json');
+    let users = await response.json();
+
+    let user = users.find(u => u.username === username && u.password === password);
+    if(user) {
+        alert('Login success! Redirecting to dashboard...');
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        window.location.href = 'dashboard.html';
+    } else {
+        alert('Invalid username or password.');
+    }
 }
 </script>
 </body>
