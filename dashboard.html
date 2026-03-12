@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard – Dimak Backroom Staff Valenzuela</title>
+<style>
+body {
+    background: #ffe5e5;
+    font-family: Arial;
+    color: #800000;
+    padding: 20px;
+}
+h1 { font-weight: bold; text-align: center; }
+#search {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #ffcccc;
+}
+.record {
+    background: #fff0f0;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+.record img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+</style>
+</head>
+<body>
+<h1>Records Dashboard</h1>
+<input type="text" id="search" placeholder="Search records..." onkeyup="filterRecords()">
+<div id="records"></div>
+
+<script>
+// Sample data
+const users = [
+    { fullname:"Jane Doe", username:"janedoe", email:"jane@example.com", picture:"https://via.placeholder.com/80" },
+    { fullname:"John Smith", username:"johnsmith", email:"john@example.com", picture:"https://via.placeholder.com/80" }
+];
+
+function displayRecords(list) {
+    let container = document.getElementById("records");
+    container.innerHTML = "";
+    list.forEach(u => {
+        container.innerHTML += `
+        <div class="record">
+            <img src="${u.picture}" alt="Profile">
+            <div>
+                <strong>${u.fullname}</strong><br>
+                ID: ${u.username}<br>Email: ${u.email}
+            </div>
+        </div>`;
+    });
+}
+
+function filterRecords() {
+    let q = document.getElementById("search").value.toLowerCase();
+    displayRecords(users.filter(u =>
+        u.fullname.toLowerCase().includes(q) ||
+        u.username.toLowerCase().includes(q) ||
+        u.email.toLowerCase().includes(q)
+    ));
+}
+
+displayRecords(users);
+</script>
+</body>
+</html>
